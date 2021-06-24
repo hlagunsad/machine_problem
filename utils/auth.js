@@ -3,7 +3,6 @@ const {AuthenticationError} = require('apollo-server');
 const privateKey = process.env.PRIVATE_KEY;
 
 module.exports = (context) => {
-    console.log(context.req.headers.authorization)
     const authHeader = context.req.headers.authorization;
     if(authHeader){
         const token = authHeader.split('Bearer ')[1];

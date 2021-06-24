@@ -2,10 +2,23 @@ const gql = require('graphql-tag');
 
 module.exports = gql`
     type Story{
-        id:ID,
-        createdAt: String,
-        username: String!,
+        id:ID
+        createdAt: String
+        username: String!
         body: String!
+        comments: [Comment]!
+        likes: [Like]!
+    }
+    type Comment{
+        id: ID!
+        createdAt: String!
+        username: String!
+        body: String!
+    }
+    type Like{
+        id: ID!
+        username: String!
+        createdAt: String!
     }
     type User{
         id: ID!
@@ -30,5 +43,8 @@ module.exports = gql`
         login(username: String!, password: String!): User!
         createStory(body: String!): Story!
         deleteStory(storyId: ID!): String!
+        createComment(storyId: String!, body: String!): Story!
+        deleteComment(storyId: String!, commentId: ID!): Story!
+        likeStory(storyId: String!): Story!
     }
 `

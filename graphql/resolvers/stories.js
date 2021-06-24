@@ -29,15 +29,20 @@ module.exports = {
     Mutation: {
         async createStory(_, {body}, context){
             const user = checkAuth(context);
-            const newStory = new Story({
-                body,
-                user: user.id,
-                username: user.username,
-                createdAt: new Date().toISOString()
-            });
 
-            const story = await newStory.save()
-            return story;
+            if(body.length === 0){
+                throw new Error("Story can't be empty");
+            }else {
+                const newStory = new Story({
+                    body,
+                    user: user.id,
+                    username: user.username,
+                    createdAt: new Date().toISOString()
+                });
+    
+                const story = await newStory.save()
+                return story;
+            }
         },
         async deleteStory(_,{storyId}, context){
             const user = checkAuth(context);

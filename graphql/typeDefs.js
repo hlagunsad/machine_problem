@@ -45,8 +45,8 @@ module.exports = gql`
         login(username: String!, password: String!): User!
         createStory(body: String!): Story!
         deleteStory(storyId: ID!): String!
-        createComment(storyId: String!, body: String!): Story!
-        deleteComment(storyId: String!, commentId: ID!): Story!
-        likeStory(storyId: String!): Story!
+        createComment(storyId: ID!, body: String!): Story!
+        deleteComment(storyId: ID!, commentId: ID!): Story!
+        likeStory(storyId: ID!): Story!
     }
 `

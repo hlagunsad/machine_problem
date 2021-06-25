@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 
 import { AuthContext } from "../contexts/auth";
 import LikeButton from "./LikeButton";
+import DeleteButton from "./DeleteButton";
 
 export default function StoryCard({
   story: { body, id, createdAt, username, likeCount, commentCount, likes } = {},
 }) {
+  
   const { user } = useContext(AuthContext);
-  const likeStory = () => {
-    console.log("Harry");
-  };
 
   return (
     <Card fluid>
@@ -29,6 +28,7 @@ export default function StoryCard({
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
+        
         <LikeButton user={user} story={{id, likes, likeCount}} />
 
         <Button labelPosition="right" as={Link} to={`/stories/${id}`}>
@@ -39,16 +39,7 @@ export default function StoryCard({
             {commentCount}
           </Label>
         </Button>
-        {user && user.username === username && (
-          <Button
-            as="div"
-            basic
-            floated="right"
-            color="red"
-            onClick={() => console.log('delete')} >
-                <Icon name="trash alternate outline" style={{margin: 0}} />
-          </Button>
-        )}
+        {user && user.username === username && <DeleteButton storyId={id} />}
       </Card.Content>
     </Card>
   );

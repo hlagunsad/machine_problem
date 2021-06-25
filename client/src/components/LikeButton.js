@@ -4,18 +4,6 @@ import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { Button, Label, Icon } from "semantic-ui-react";
 
-const LIKE_STORY_MUTATION = gql`
-  mutation likeStory($storyId: ID!) {
-    likeStory(storyId: $storyId) {
-      id
-      likes {
-        id
-        username
-      }
-      likeCount
-    }
-  }
-`;
 
 function LikeButton({ user, story: { id, likeCount, likes } }) {
   const [liked, setLiked] = useState(false);
@@ -28,8 +16,11 @@ function LikeButton({ user, story: { id, likeCount, likes } }) {
     }
   }, [user, likes]);
 
-  const [likeStory] = useMutation(LIKE_STORY_MUTATION, {
-    variables: { storyId: id }
+  const [likeStory, {error}] = useMutation(LIKE_STORY_MUTATION, {
+    variables: { storyId: id },
+    onError(err) {
+        return err;
+      }
   });
 
   const likeButton = user ? (
@@ -57,5 +48,20 @@ function LikeButton({ user, story: { id, likeCount, likes } }) {
     </Button>
   );
 }
+
+const LIKE_STORY_MUTATION = gql`
+  mutation likeStory(
+      $storyId: ID!
+    ){
+        likeStory(storyId: $storyId){
+            id 
+            likes{
+                id 
+                username
+            } 
+            likeCount
+        }
+    }
+`
 
 export default LikeButton;

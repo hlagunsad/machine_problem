@@ -14,6 +14,7 @@ import AuthRoute from './utils/AuthRoute'
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import SingleStory from './pages/SingleStory';
 
 import MenuBar from './components/MenuBar';
 
@@ -26,6 +27,7 @@ function App() {
             <Route exact path='/' component={Home} />
             <AuthRoute exact path='/login' component={Login} />
             <AuthRoute exact path='/register' component={Register} />
+            <Route exact path='/stories/:storyId' component={SingleStory} />
             </Container>
           </Router>
       </AuthProvider>
